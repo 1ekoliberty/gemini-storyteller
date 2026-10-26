@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: gemini-storyteller
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn server:app --host 0.0.0.0 --port $PORT --no-access-log
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.8
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: ACCESS_SECRET
+        generateValue: true
+      - key: GEMINI_VOICE
+        value: Sulafat
+      - key: GEMINI_MODEL
+        value: gemini-3.8-flash-tts
